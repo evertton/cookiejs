@@ -1,132 +1,66 @@
-(function( window, undefined ){
-	var Cookie = (function(){
+(function (window, undefined) {
+	var Cookie = function (key, value, options) {
+		return arguments.length === 1 ?
+			Cookie.get(key) : Cookie.set(key, value, options);
+	};
 
-		var Cookie = function (name, value, options){
-			switch(arguments.length){
-				case 1: 
-					return new Cookie.fn.load(name);
-				case 2:
-					return new Cookie.fn.initTwo(name, value);
-				case 3:
-					return new Cookie.fn.init(name, value, options, true);
-			}
-		};
+	Cookie.enabled = navigator.cookieEnabled;
 
-		var name,
-			value,
-			expires, // Date
-			domain,
-			path,
-			secure; // boolean
+	Cookie.get = function (key) {
+		cookies = document.cookie.split('; ');
+		cookieList = [];
 
-		Cookie.fn = Cookie.prototype = {
-			constructor: Cookie,
-			init: function (n, v, o, save){
-				name = n;
-				value = v;
+		for (i in cookies) {
+			cookie = cookies[i].split('=');
+			cookieList[cookie[0]] = cookie[1];
+		}
+        
+		return cookieList[key];
+	};
 
-				this.setExpires(o.expires);
+	Cookie.defaults = {
+		path: '/'
+	};
 
-				domain = o.domain;
-				path = o.path;
-				http = o.http;
-				this.setSecure(o.secure);
+	Cookie.set = function (key, value, options) {
+		options = (function () {
+			return {
+				domain: options && options.domain || Cookie.defaults.domain,
+				expires: options && options.expires || Cookie.defaults.expires,
+				path: options && options.path || Cookie.defaults.path,
+				secure: options && options.secure !== undefined ? options.secure : Cookie.defaults.secure
+			};
+		})();
 
-				if(save)
-					this.save();
+		options.expires = (value === undefined) ? -1 : options.expires;
 
-				return this;
-			},
-			initTwo: function(n, v){
-				return new Cookie.fn.init(n, v, {}, true);
-			},
-			load: function(n){
-				cookies = document.cookie.split('; ');
-				cookieList = [];
+		switch (typeof options.expires) {
+		case 'number':
+			options.expires *= 86400000;
+			options.expires = new Date(new Date().getTime() + options.expires);
+			break;
+		case 'string':
+			options.expires = new Date(options.expires);
+			break;
+		}
 
-				for(i in cookies){
-					cookie = cookies[i].split('=');
-					cookieList.push({name:cookie[0], value:cookie[1]});
-				}
+		var cookieString = key + '=' + value + ';';
 
-				for(i in cookieList){
-					cookie = cookieList[i];
-					if(cookie.name == n){
-						return new Cookie.fn.init(cookie.name, cookie.value, {}, false);
-					}
-				}
+		if (options) {
+			cookieString += options.domain ? 'domain=' + options.domain + ';' : '';
+			cookieString += options.expires ? 'expires=' + options.expires.toUTCString() + ';' : '';
+			cookieString += options.path ? 'path=' + options.path + ';' : '';
+			cookieString += options.secure ? 'secure;' : '';
+		}
 
-				throw "Cookie not found!";
-			},
-			getValue: function(){
-				return value;
-			},
-			setValue: function(v){
-				value = v;
-				return this;
-			},
-			setExpires: function(e){
-				try{
-					if(e === undefined || e === 0){
-						expires = undefined;
-					} else if(typeof(e) === "number"){
-						expires = new Date();
-						expires.setDate(expires.getDate()+e);
-					} else if(e.getDate()){
-						expires = e;
-					}
-				} catch(event){
-					throw "Expires must be a Date object!";
-				}
-
-				return this;
-			},
-			setDomain: function(d){
-				domain = d;
-				return this;
-			},
-			setPath: function(p){
-				path = p;
-				return this;
-			},
-			setSecure: function(s){
-				if(s === undefined){
-					secure = false;
-				} else if(typeof(s) === "boolean"){
-					secure = s;
-				} else {
-					throw "Secure must be a Boolean type!";
-				}
-
-				return this;
-			},
-			save: function(){
-				cookie =  name + '=' + value + ';';
-				cookie += expires ? 'expires=' + expires.toUTCString() + ';' : '';
-				cookie += domain ? 'domain=' + domain + ';' : '';
-				cookie += path ? 'path=' + path + ';' : '';
-				cookie += secure ? 'secure;' : '';
-
-				document.cookie = cookie;
-			},
-			delete: function(){
-				expires = new Date(null);
-				this.save();
-			}
-		};
-
-		Cookie.fn.init.prototype = Cookie.fn;
-
+		document.cookie = cookieString;
 		return Cookie;
-	})();
+	};
 
-	var raw = Cookie.raw = function(){
-		return document.cookie;
-	}
-
-	var enabled = Cookie.enabled = navigator.cookieEnabled;
+	Cookie.expires = function (key, options) {
+		return Cookie.set(key, undefined, options);
+	};
 
 	window.Cookie = Cookie;
+
 })(window);
-
-
