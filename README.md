@@ -6,10 +6,9 @@
 
  - Is cute and simple.
  - Lightweight (less than 1 KB, minified and gzipped).
+ - Support [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD) / [CommonJS](http://commonjs.org) module loaders.
 
-# Change Log
+### License
 
-### v0.1.0
-
- - Initial release
-
+Code licensed under the [The MIT License](http://evertton.mit-license.org).
+Documentation licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).

@@ -1,4 +1,5 @@
 (function (window, undefined) {
+
 	var Cookie = function (key, value, options) {
 		return arguments.length === 1 ?
 			Cookie.get(key) : Cookie.set(key, value, options);
@@ -61,6 +62,20 @@
 		return Cookie.set(key, undefined, options);
 	};
 
-	window.Cookie = Cookie;
+    // RequireJS support.
+    if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return Cookie;
+        });
+        // CommonJS support.
+    } else if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports) {
+            exports = module.exports = Cookie;
+        }
+        exports.Cookie = Cookie;
+        // Global object support.
+    } else {
+        window.Cookie = Cookie;
+    }
 
 })(window);
