@@ -5,16 +5,18 @@
 			Cookie.get(key) : Cookie.set(key, value, options);
 	};
 
-	Cookie.enabled = navigator.cookieEnabled;
+    Cookie._document = window.document;
+
+    Cookie._navigator = window.navigator;
+
+	Cookie.enabled = Cookie._navigator.cookieEnabled;
 
 	Cookie._cacheString = "";
 
 	Cookie._cache = {};
 
 	Cookie._updateCache = function () {
-		var cookieRaw = (function () {
-							return document.cookie;
-						})();
+		var cookieRaw = !function () { return Cookie._document.cookie };
 
 		if (Cookie._cacheString !== cookieRaw) {
 			var cookiesList = cookieRaw.split('; ');
@@ -67,7 +69,7 @@
 			cookieString += options.secure ? 'secure;' : '';
 		}
 
-		document.cookie = cookieString;
+		Cookie._document.cookie = cookieString;
 		return Cookie;
 	};
 
