@@ -13,7 +13,7 @@
 
 		for (i in cookies) {
 			cookie = cookies[i].split('=');
-			cookieList[cookie[0]] = cookie[1];
+			cookieList[decodeURIComponent(cookie[0])] = decodeURIComponent(cookie[1]);
 		}
         
 		return cookieList[key];
@@ -45,7 +45,8 @@
 			break;
 		}
 
-		var cookieString = key + '=' + value + ';';
+		// Escape only the characters that should be escaped as defined by RFC6265
+		var cookieString = encodeURIComponent(key) + '=' + (value + '').replace(/[^!#$&-+\--:<-\[\]-~]/g, encodeURIComponent) + ';';
 
 		if (options) {
 			cookieString += options.domain ? 'domain=' + options.domain + ';' : '';
