@@ -7,16 +7,28 @@
 
 	Cookie.enabled = navigator.cookieEnabled;
 
-	Cookie.get = function (key) {
-		cookies = document.cookie.split('; ');
-		cookieList = [];
+	Cookie._cacheString = "";
 
-		for (i in cookies) {
-			cookie = cookies[i].split('=');
-			cookieList[decodeURIComponent(cookie[0])] = decodeURIComponent(cookie[1]);
+	Cookie._cache = {};
+
+	Cookie._updateCache = function () {
+		var cookieRaw = (function () {
+							return document.cookie;
+						})();
+
+		if (Cookie._cacheString !== cookieRaw) {
+			var cookiesList = cookieRaw.split('; ');
+			for (var i in cookiesList) {
+				var cookie = cookiesList[i].split('=');
+				Cookie._cache[decodeURIComponent(cookie[0])] = decodeURIComponent(cookie[1]);
+			}
+			Cookie._cacheString = cookieRaw;
 		}
-        
-		return cookieList[key];
+	};
+
+	Cookie.get = function (key) {
+		Cookie._updateCache();
+		return Cookie._cache[key];
 	};
 
 	Cookie.defaults = {
@@ -63,20 +75,27 @@
 		return Cookie.set(key, undefined, options);
 	};
 
-    // RequireJS support.
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return Cookie;
-        });
-        // CommonJS support.
-    } else if (typeof exports !== 'undefined') {
-        if (typeof module !== 'undefined' && module.exports) {
-            exports = module.exports = Cookie;
-        }
-        exports.Cookie = Cookie;
-        // Global object support.
-    } else {
-        window.Cookie = Cookie;
-    }
+	Cookie.clear = function () {
+		Cookie._updateCache();
+		for (var name in Cookie._cache) {
+			Cookie.expires(name);
+		}
+	};
+
+	// RequireJS support
+	if (typeof define === 'function' && define.amd) {
+		define(function () {
+			return Cookie;
+		});
+		// CommonJS support.
+	} else if (typeof exports !== 'undefined') {
+		if (typeof module !== 'undefined' && module.exports) {
+			exports = module.exports = Cookie;
+		}
+		exports.Cookie = Cookie;
+		// Global Object support.
+	} else {
+		window.Cookie = Cookie;
+	}
 
 })(window);
