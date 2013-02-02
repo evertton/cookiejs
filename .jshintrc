@@ -1,0 +1,19 @@
+{
+	"browser": true,
+	"curly": true,
+	"eqeqeq": true,
+	"forin": false,
+	"immed": false,
+	"nomen": false,
+	"strict": false,
+	"undef": true,
+	"unused": true,
+	"white": true,
+	"quotmark": "single",
+	"globals": {
+		"Cookie": true,
+		"define": true,
+		"exports": true,
+		"module": true
+	}
+}

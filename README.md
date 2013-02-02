@@ -1,4 +1,5 @@
 [![#Cookie.js](https://farm8.staticflickr.com/7362/9029606792_1e76c00d56_o.png "Is a simple library for manipulating cookies.")](http://evertton.github.com/cookiejs/)
+[![Build Status](https://travis-ci.org/evertton/cookiejs.png)](https://travis-ci.org/evertton/cookiejs)
 
 `Cookie.js` is a small javascript library that provides a simple API for managing cookies.
 
