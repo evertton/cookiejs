@@ -58,18 +58,26 @@ module.exports = function (grunt) {
 					tempFiles: ['dist/cookie.min.js.tmp', 'dist/cookie.before-min.js']
 				}
 			}
+		},
+		shell: {
+			doxx: {
+				command: 'doxx --template .template.doxx --source ./src --target ./docs'
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-jsonlint');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-shell');
 
 	grunt.loadTasks('.grunt/tasks');
 
 	grunt.registerTask('check_syntax', ['jsonlint', 'jshint']);
+	grunt.registerTask('docs', ['shell:doxx']);
 	grunt.registerTask('build', ['beforeUglify', 'uglify', 'afterUglify']);
 
 	grunt.registerTask('default', ['check_syntax', 'build']);
+	grunt.registerTask('test', ['check_syntax']);
 
 };

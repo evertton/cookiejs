@@ -1,5 +1,5 @@
 {
-	"name": "cookie-js",
+	"name": "cookiejs",
 	"version": "0.2.0",
 	"description": "Cookie is a small library that provides a simple API for manipulating cookies.",
 	"homepage": "http://evertton.github.io/cookiejs/",
@@ -39,6 +39,7 @@
 		"requirejs": "~2.1.8",
 		"grunt-jsonlint": "~1.0.0",
 		"grunt-contrib-jshint": "~0.2.0",
-		"grunt-contrib-uglify": "~0.2.2"
+		"grunt-contrib-uglify": "~0.2.2",
+		"grunt-shell": "~0.2.0"
 	}
 }

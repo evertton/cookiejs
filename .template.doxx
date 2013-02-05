@@ -1,0 +1,81 @@
+div.container.grid
+	aside.colspan1
+		nav.symbols
+			ul
+				each symbol in symbols
+					if symbol.type === "function" || symbol.type === "method"
+						li
+							a(href="#"+symbol.name)
+								i(class=["symbol", "symbol-method"])
+								span #{symbol.name}
+
+				each symbol in symbols
+					if symbol.type === "property"
+						li
+							a(href="#"+symbol.name)
+								i(class=["symbol", "symbol-property"])
+								span #{symbol.name}
+
+	div.colspan4.api
+		each symbol in dox
+			if symbol.gtype === "function" || symbol.gtype === "method"
+				if symbol.ctx.name
+					section(id=symbol.ctx.name)
+						h1= symbol.ctx.name
+						div.subheader
+							if !symbol.gtype && symbol.type
+									span(class=["label", "label-inverse"])= symbol.type
+							else
+									span(class=["label", "label-method"])= symbol.ctx.type
+									if symbol.ctx.string
+										span= symbol.ctx.string
+									if symbol.return
+										|  &rarr;  
+										span= symbol.return
+
+						if symbol.hasParams
+							table.table
+								thead
+									tr
+										th Option name
+										th Type
+										th Description
+								tbody
+									each tag in symbol.tags
+										if tag.type == 'param'
+											tr
+												td= tag.name
+												td= tag.types
+												td= tag.description
+
+						.description !{symbol.description.full} !{symbol.description.extra}
+
+		each symbol in dox
+			if symbol.gtype === "property"
+				if symbol.ctx.name
+					section(id=symbol.ctx.name)
+						h1= symbol.ctx.name
+						div.subheader
+							if !symbol.gtype && symbol.type
+									span(class=["label", "label-inverse"])= symbol.type
+							else
+									span(class=["label", "label-property"])= symbol.ctx.type
+									if symbol.ctx.string
+										span= symbol.ctx.string
+
+						if symbol.hasParams
+							table.table
+								thead
+									tr
+										th(style="width:20%") Option name
+										th(style="width:20%") Type
+										th Description
+								tbody
+									each tag in symbol.tags
+										if tag.type == 'param'
+											tr
+												td= tag.name
+												td= tag.types
+												td= tag.description
+
+						.description !{symbol.description.full} !{symbol.description.extra}
