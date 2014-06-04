@@ -60,7 +60,7 @@ module.exports = function (grunt) {
 			}
 		},
 		doxx: {
-			default: {
+			all: {
 				src: 'src',
 				target: 'docs',
 				options: {
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('check_syntax', ['jsonlint', 'jshint']);
 	grunt.registerTask('build', ['beforeUglify', 'uglify', 'afterUglify']);
-	grunt.registerTask('docs', ['doxx'])
+	grunt.registerTask('docs', ['doxx']);
 
 	grunt.registerTask('default', ['check_syntax', 'build']);
 	grunt.registerTask('test', ['check_syntax']);
