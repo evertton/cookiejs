@@ -59,9 +59,13 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		shell: {
-			doxx: {
-				command: 'doxx --template .template.doxx --source ./src --target ./docs'
+		doxx: {
+			default: {
+				src: 'src',
+				target: 'docs',
+				options: {
+					template: '.template.doxx'
+				}
 			}
 		}
 	});
@@ -69,13 +73,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-jsonlint');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-shell');
+	grunt.loadNpmTasks('grunt-doxx');
 
 	grunt.loadTasks('.grunt/tasks');
 
 	grunt.registerTask('check_syntax', ['jsonlint', 'jshint']);
-	grunt.registerTask('docs', ['shell:doxx']);
 	grunt.registerTask('build', ['beforeUglify', 'uglify', 'afterUglify']);
+	grunt.registerTask('docs', ['doxx'])
 
 	grunt.registerTask('default', ['check_syntax', 'build']);
 	grunt.registerTask('test', ['check_syntax']);
