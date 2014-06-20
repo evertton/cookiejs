@@ -62,7 +62,11 @@ module.exports = function (grunt) {
 		doxx: {
 			all: {
 				src: 'src',
-				target: 'docs',
+				target: 'docs'
+			},
+			gh_page: {
+				src: 'src',
+				target: 'tmp/docs',
 				options: {
 					template: '.template.doxx'
 				}
@@ -79,7 +83,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('check_syntax', ['jsonlint', 'jshint']);
 	grunt.registerTask('build', ['beforeUglify', 'uglify', 'afterUglify']);
-	grunt.registerTask('docs', ['doxx']);
+	grunt.registerTask('docs', ['doxx:all']);
 
 	grunt.registerTask('default', ['check_syntax', 'build']);
 	grunt.registerTask('test', ['check_syntax']);

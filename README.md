@@ -3,6 +3,12 @@
 
 Cookie is a JavaScript library that proposes an abstraction the `document.cookie` API, designed to make cookies management **simple** and **easy**. [Learn more](http://evertton.github.io/cookiejs)
 
+### Motivation
+
+This project was initiated in mid-2012. The motivation for developing this project was the need to learn to use the GitHub tools for source code management.
+
+During the development of this project I learned new concepts and development techniques.  So I decided to keep it as a knowledge source for new developers and a contribution to the open source community.
+
 ### License
 
 Code licensed under the [The MIT License](http://evertton.mit-license.org).
