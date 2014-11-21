@@ -1,6 +1,6 @@
 {
   "name": "cookiejs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cookie is a small library that provides a simple API for manipulating cookies.",
   "homepage": "http://evertton.github.io/cookiejs/",
   "keywords": [
