@@ -16,7 +16,7 @@
 	Cookie._cache = {};
 
 	Cookie._updateCache = function () {
-		var cookieRaw = !function () { return Cookie._document.cookie; };
+		var cookieRaw = (function () { return Cookie._document.cookie; })();
 
 		if (Cookie._cacheString !== cookieRaw) {
 			var cookiesList = cookieRaw.split('; ');
@@ -33,9 +33,7 @@
 		return Cookie._cache[key];
 	};
 
-	Cookie.defaults = {
-		path: '/'
-	};
+	Cookie.defaults = {};
 
 	Cookie.set = function (key, value, options) {
 		options = (function () {

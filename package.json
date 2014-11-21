@@ -1,45 +1,59 @@
 {
-	"name": "cookiejs",
-	"version": "0.2.0",
-	"description": "Cookie is a small library that provides a simple API for manipulating cookies.",
-	"homepage": "http://evertton.github.io/cookiejs/",
-	"keywords": ["cookie", "RFC6265", "persistence", "http"],
-	"categories": ["DOM", "Storage", "Utilities"],
-	"jam": {
-		"shim":{
-			"exports": "Cookie"
-		},
-		"main": "dist/cookie.min.js",
-		"include": [
-			"dist/cookie.min.js",
-			"README.md"
-		]
-	},
-	"mainteners": [{
-		"name": "Evertton de Lima",
-		"email": "e.everttonlima@gmail.com"
-	}],
-	"bugs": {
-		"url": "https://github.com/evertton/cookiejs/issues"
-	},
-	"licenses": [{
-		"type": "MIT",
-		"url": "http://evertton.mit-license.org/"
-	}],
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/evertton/cookiejs.git"
-	},
-	"github": "https://github.com/evertton/cookiejs",
-	"scripts": {
-		"test": "grunt test"
-	},
-	"devDependencies": {
-		"grunt": "~0.4.5",
-		"requirejs": "~2.1.8",
-		"grunt-jsonlint": "~1.0.0",
-		"grunt-contrib-jshint": "~0.2.0",
-		"grunt-contrib-uglify": "~0.2.2",
-		"grunt-doxx": "~0.1.0"
-	}
+  "name": "cookiejs",
+  "version": "0.2.0",
+  "description": "Cookie is a small library that provides a simple API for manipulating cookies.",
+  "homepage": "http://evertton.github.io/cookiejs/",
+  "keywords": [
+    "cookie",
+    "RFC6265",
+    "persistence",
+    "http"
+  ],
+  "categories": [
+    "DOM",
+    "Storage",
+    "Utilities"
+  ],
+  "jam": {
+    "shim": {
+      "exports": "Cookie"
+    },
+    "main": "dist/cookie.min.js",
+    "include": [
+      "dist/cookie.min.js",
+      "README.md"
+    ]
+  },
+  "mainteners": [
+    {
+      "name": "Evertton de Lima",
+      "email": "e.everttonlima@gmail.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/evertton/cookiejs/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://evertton.mit-license.org/"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/evertton/cookiejs.git"
+  },
+  "github": "https://github.com/evertton/cookiejs",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "requirejs": "~2.1.8",
+    "grunt-jsonlint": "~1.0.0",
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-doxx": "~0.1.0",
+    "grunt-contrib-jasmine": "~0.8.1"
+  }
 }

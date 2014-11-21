@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cookie.js Test Runner</title>
+    <link href="../node_modules/grunt-contrib-jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../node_modules/grunt-contrib-jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script type="text/javascript" src="../node_modules/grunt-contrib-jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script type="text/javascript" src="../node_modules/grunt-contrib-jasmine/node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
+</head>
+<body>
+
+  <!-- include source files here... -->
+  <script type="text/javascript" src="../src/cookie.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript" src="../tests/cookie.spec.js"></script>
+
+    <script type="text/javascript">
+        (function() {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function(spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function() {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
+
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+
+        })();
+  </script>
+</body>
+</html>

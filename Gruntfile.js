@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 			}
 		},
 		jshint: {
-			all: ['Gruntfile.js', 'grunt/**/*.js', 'src/*.js'],
+			all: ['Gruntfile.js', 'grunt/**/*.js', 'src/*.js', 'tests/*.js'],
 			options: {
 				jshintrc: '.jshintrc'
 			}
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 					header: '/*!\n' +
 							' * Cookie JavaScript Library v<%= grunt.file.readJSON(\'package.json\').version %>\n' +
 							' * \n' +
-							' * Copyright 2013 Evertton de Lima\n' +
+							' * Copyright 2013-2014 Evertton de Lima\n' +
 							' * Released under The MIT License\n' +
 							' * http://evertton.mit-license.org/\n' +
 							' */\n'
@@ -71,21 +71,27 @@ module.exports = function (grunt) {
 					template: '.template.doxx'
 				}
 			}
-		}
+		},
+		jasmine: {
+            src: 'src/*.js',
+            options: {
+                specs: 'tests/*.spec.js'
+            }
+        }
 	});
 
 	grunt.loadNpmTasks('grunt-jsonlint');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-doxx');
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
 
 	grunt.loadTasks('.grunt/tasks');
 
 	grunt.registerTask('check_syntax', ['jsonlint', 'jshint']);
+	grunt.registerTask('test', ['jasmine']);
 	grunt.registerTask('build', ['beforeUglify', 'uglify', 'afterUglify']);
 	grunt.registerTask('docs', ['doxx:all']);
 
-	grunt.registerTask('default', ['check_syntax', 'build']);
-	grunt.registerTask('test', ['check_syntax']);
-
+	grunt.registerTask('default', ['check_syntax', 'test', 'build']);
 };
