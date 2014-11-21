@@ -111,11 +111,11 @@ describe('UNIT TESTS', function () {
         });
 
         it('sets a cookie with options defined', function () {
-            var expectedString = 'key=value;domain=evertton.hopper.pw;expires=Wed, 28 Jan 2015 03:00:00 GMT;path=/cookiejs;secure;';
+            var expectedString = 'key=value;domain=evertton.hopper.pw;expires=Wed, 28 Jan 2015 00:00:00 GMT;path=/cookiejs;secure;';
 
             var options = {
                 domain: 'evertton.hopper.pw',
-                expires: 'January 28, 2015',
+                expires: 'January 28, 2015 00:00:00 GMT',
                 path: '/cookiejs',
                 secure: true
             };
@@ -161,12 +161,12 @@ describe('UNIT TESTS', function () {
             describe('.expires', function () {
                 beforeEach(function () {
                     Cookie.defaults = {
-                        expires: 'January 28, 2015'
+                        expires: 'January 28, 2015 00:00:00 GMT'
                     };
                 });
                 
                 it('is set', function () {
-                    var expectedString = 'key=value;expires=Wed, 28 Jan 2015 03:00:00 GMT;';
+                    var expectedString = 'key=value;expires=Wed, 28 Jan 2015 00:00:00 GMT;';
 
                     Cookie.set(key, value);
 
@@ -174,10 +174,10 @@ describe('UNIT TESTS', function () {
                 });
 
                 it('overwrite when options is set', function () {
-                    var expectedString = 'key=value;expires=Sat, 28 Feb 2015 03:00:00 GMT;';
+                    var expectedString = 'key=value;expires=Sat, 28 Feb 2015 00:00:00 GMT;';
 
                     var options = {
-                        expires: 'February 28, 2015'
+                        expires: 'February 28, 2015 00:00:00 GMT'
                     };
 
                     Cookie.set(key, value, options);
